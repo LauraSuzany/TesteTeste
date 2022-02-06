@@ -1,4 +1,4 @@
-package com.laura.backenddev.controller.exception;
+	package com.laura.backenddev.controller.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,12 +11,11 @@ import com.laura.backenddev.service.exceptions.ObjectNotFoundException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
-	@ExceptionHandler(ObjectNotFoundException.class)
-	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request){
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<StandardError> objectNotFound(Exception e, HttpServletRequest request){
 		StandardError error = new  StandardError(HttpStatus.NOT_FOUND.value(), System.currentTimeMillis(), e.getMessage());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
-				
-		
+	
 	}
 
 }

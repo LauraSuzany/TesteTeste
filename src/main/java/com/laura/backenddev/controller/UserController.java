@@ -2,6 +2,8 @@ package com.laura.backenddev.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -42,13 +44,13 @@ public class UserController {
 
 	@PostMapping
 	@ApiOperation(value="Salva um produto")
-	public User insert(@RequestBody User user) {
+	public User insert(@RequestBody @Valid User user) {
 		return crudUserService.insert(user);
 	}
 
 	@PutMapping
 	@ApiOperation(value="Atualiza um produtos")
-	public User update(@RequestBody User user) {
+	public User update(@RequestBody @Valid User user) {
 		return crudUserService.update(user);
 	}
 

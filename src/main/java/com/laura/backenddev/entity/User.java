@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "TB_USER")
@@ -24,7 +27,9 @@ public class User implements Serializable {
 	private long id;
 //@Column(nullable = false) não é preciso depois criar um requestbory
 //@NotNull(message="The name cannot be null")
+	@NotBlank//obriga que os campos sejam preenchidos e não tenha apenas espaços em brancos 
 	private String nome;
+	@CPF
 	private String cpf;
 	@OneToMany(mappedBy = "user")
 	private List<UserDocumentation> listadocumentos;
