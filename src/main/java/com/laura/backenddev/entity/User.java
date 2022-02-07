@@ -25,21 +25,25 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
-//@Column(nullable = false) não é preciso depois criar um requestbory
-//@NotNull(message="The name cannot be null")
-	@NotBlank//obriga que os campos sejam preenchidos e não tenha apenas espaços em brancos 
+	@NotBlank
 	private String nome;
+
 	@CPF
 	private String cpf;
+
 	@OneToMany(mappedBy = "user")
 	private List<UserDocumentation> listadocumentos;
+
 	public User() {
-		
+
 	}
-	public User(String nome, String cpf) {
+
+	public User(long id, @NotBlank String nome, @CPF String cpf, List<UserDocumentation> listadocumentos) {
 		super();
+		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
+		this.listadocumentos = listadocumentos;
 	}
 
 	public long getId() {
@@ -82,5 +86,6 @@ public class User implements Serializable {
 		User other = (User) obj;
 		return id == other.id;
 	}
+
 
 }
