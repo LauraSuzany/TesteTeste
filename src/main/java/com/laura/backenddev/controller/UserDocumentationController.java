@@ -59,10 +59,7 @@ public class UserDocumentationController {
 			return ResponseEntity.ok(userDocumentationRepository.findAll(enablePagination ? PageRequest.of(page, size) : Pageable.unpaged()));
 		
 	}
-			
-
-
-	@PostMapping("/user/{userId}/userDoc")
+	@PostMapping("/user/{userId}/userDoc/{docid}")
 	public UserDocumentation createDoc(@PathVariable Long userId,
 			@Valid @RequestBody UserDocumentation userDocumentation) throws NotFoundException {
 		return userRepository.findById(userId).map(user -> {
@@ -71,8 +68,6 @@ public class UserDocumentationController {
 		}).orElseThrow(() -> new NotFoundException(" not found!"));
 
 	}
-	
-	
 	@PutMapping("/user/{userId}/userDoc/{docid}")
 	@ApiOperation(value = "Atualiza")
 	public UserDocumentation update(@PathVariable Long userId, @PathVariable Long docid,

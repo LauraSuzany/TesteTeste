@@ -40,13 +40,14 @@ public class UserController {
 
 	@GetMapping("/user")
 	@ApiOperation(value = "Retorna uma lista")
-	public ResponseEntity<Page<User>> getAll
-		(	@RequestParam(required = false, defaultValue = "0") Integer page,
+	public ResponseEntity<Page<User>> getAll(@RequestParam(required = false, defaultValue = "0") Integer page,
 			@RequestParam(required = false, defaultValue = "10") Integer size,
 			@RequestParam(required = false, defaultValue = "0") boolean enablePagination) {
 
-		return ResponseEntity.ok(userRepository.findAll(enablePagination ? PageRequest.of(page, size) : Pageable.unpaged()));
+		return ResponseEntity
+				.ok(userRepository.findAll(enablePagination ? PageRequest.of(page, size) : Pageable.unpaged()));
 	}
+
 	@GetMapping("/user/{id}")
 	@ApiOperation(value = "Retorna dados por id")
 	public User getUsertByID(@PathVariable Long id) throws NotFoundException {
@@ -59,9 +60,9 @@ public class UserController {
 	}
 
 	@PostMapping("/user")
-	@ApiOperation(value = "Salva") 
+	@ApiOperation(value = "Salva")
 	@ExceptionHandler(BadRequest.class)
-	public User createUser(@Valid @RequestBody User user){
+	public User createUser(@Valid @RequestBody User user) {
 		return userRepository.save(user);
 	}
 
