@@ -1,4 +1,4 @@
-package com.laura.backenddev.controller;
+	package com.laura.backenddev.controller;
 
 import java.util.Optional;
 
@@ -31,10 +31,11 @@ import javassist.NotFoundException;
 @RestController
 @RequestMapping("api")
 @Api(value = "Teste empresa DBA Suporte")
+
 @CrossOrigin(originPatterns = "*")
 
 public class UserDocumentationController {
-	@Autowired
+	@Autowired // inje
 	private UserDocumentationRepository userDocumentationRepository;
 
 	@Autowired
@@ -50,15 +51,17 @@ public class UserDocumentationController {
 		return userDocumentationRepository.findById(userId);
 
 	}
+
 	@GetMapping("/userDoc")
-	public ResponseEntity<Page<UserDocumentation>> getAllUserDocu
-	(
+	public ResponseEntity<Page<UserDocumentation>> getAllUserDocu(
 			@RequestParam(required = false, defaultValue = "0") Integer page,
 			@RequestParam(required = false, defaultValue = "10") Integer size,
-			@RequestParam(required = false, defaultValue = "0") boolean enablePagination){
-			return ResponseEntity.ok(userDocumentationRepository.findAll(enablePagination ? PageRequest.of(page, size) : Pageable.unpaged()));
-		
+			@RequestParam(required = false, defaultValue = "0") boolean enablePagination) {
+		return ResponseEntity.ok(userDocumentationRepository
+				.findAll(enablePagination ? PageRequest.of(page, size) : Pageable.unpaged()));
+
 	}
+
 	@PostMapping("/user/{userId}/userDoc/{docid}")
 	public UserDocumentation createDoc(@PathVariable Long userId,
 			@Valid @RequestBody UserDocumentation userDocumentation) throws NotFoundException {
@@ -68,31 +71,31 @@ public class UserDocumentationController {
 		}).orElseThrow(() -> new NotFoundException(" not found!"));
 
 	}
+
 	@PutMapping("/user/{userId}/userDoc/{docid}")
-	@ApiOperation(value = "Atualiza")
+	@ApiOperation(value = "Consultar saldo por id da conta")
 	public UserDocumentation update(@PathVariable Long userId, @PathVariable Long docid,
-			@Valid @RequestBody UserDocumentation docUserupdate) throws NotFoundException  {
+			@Valid @RequestBody UserDocumentation docUserupdate) throws NotFoundException {
 		if (!userRepository.existsById(userId)) {
 			throw new NotFoundException("User not found!");
 		}
-			return userDocumentationRepository.findById(docid)
-			.map( maUppdateDoc -> {
-				maUppdateDoc.setDocument(docUserupdate.getDocument());
-				maUppdateDoc.setTipoDocumento(docUserupdate.getTipoDocumento());
-	            return userDocumentationRepository.save(maUppdateDoc);
-	        }).orElseThrow(() -> new NotFoundException("found with id"));	
-	
+		return userDocumentationRepository.findById(docid).map(maUppdateDoc -> {
+			maUppdateDoc.setDocument(docUserupdate.getDocument());
+			maUppdateDoc.setTipoDocumento(docUserupdate.getTipoDocumento());
+			return userDocumentationRepository.save(maUppdateDoc);
+		}).orElseThrow(() -> new NotFoundException("found with id"));
+
 	}
+
 	@DeleteMapping("/user/{userId}/userDoc/{docid}")
 	public String deleteDoc(@PathVariable Long userId, @PathVariable Long docid) throws NotFoundException {
 		if (!userRepository.existsById(userId)) {
 			throw new NotFoundException("User not found!");
 		}
- 	
-        return userDocumentationRepository.findById(docid)
-                .map(maUppdateDoc -> {
-                	userDocumentationRepository.delete(maUppdateDoc);
-                    return "Deleted Successfully!";
-                }).orElseThrow(() -> new NotFoundException("Contact not found!"));
-    }
+
+		return userDocumentationRepository.findById(docid).map(maUppdateDoc -> {
+			userDocumentationRepository.delete(maUppdateDoc);
+			return "Deleted Successfully!";
+		}).orElseThrow(() -> new NotFoundException("Contact not found!"));
+	}
 }

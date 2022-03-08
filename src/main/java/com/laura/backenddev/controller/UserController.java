@@ -55,7 +55,7 @@ public class UserController {
 		if (objUser.isPresent()) {
 			return objUser.get();
 		} else {
-			throw new NotFoundException("not found fsdfsdfs id " + id);
+			throw new NotFoundException("not found id " + id);
 		}
 	}
 
