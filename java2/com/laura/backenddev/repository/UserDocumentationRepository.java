@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.laura.backenddev.entity.Doc;
 
 @Repository
-public interface UserDocumentationRepository extends JpaRepository <Doc, Long> {
+public interface UserDocumentationRepository extends JpaRepository <UserDocumentation, Long> {
 
 
 }

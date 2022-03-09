@@ -42,7 +42,7 @@ public class UserDocumentationController {
 	private UserRepository userRepository;
 
 	@GetMapping("/user/{userId}/userDoc")
-	public Optional<Doc> getContactByUserId(@PathVariable Long userId) throws NotFoundException {
+	public Optional<UserDocumentation> getContactByUserId(@PathVariable Long userId) throws NotFoundException {
 
 		if (!userRepository.existsById(userId)) {
 			throw new NotFoundException("User not found!");
@@ -53,7 +53,7 @@ public class UserDocumentationController {
 	}
 
 	@GetMapping("/userDoc")
-	public ResponseEntity<Page<Doc>> getAllUserDocu(
+	public ResponseEntity<Page<UserDocumentation>> getAllUserDocu(
 			@RequestParam(required = false, defaultValue = "0") Integer page,
 			@RequestParam(required = false, defaultValue = "10") Integer size,
 			@RequestParam(required = false, defaultValue = "0") boolean enablePagination) {
@@ -63,19 +63,19 @@ public class UserDocumentationController {
 	}
 
 	@PostMapping("/user/{userId}/userDoc/{docid}")
-	public Doc createDoc(@PathVariable Long userId,
-			@Valid @RequestBody Doc doc) throws NotFoundException {
+	public UserDocumentation createDoc(@PathVariable Long userId,
+			@Valid @RequestBody UserDocumentation userDocumentation) throws NotFoundException {
 		return userRepository.findById(userId).map(user -> {
-			doc.setUser(user);
-			return userDocumentationRepository.save(doc);
+			userDocumentation.setUser(user);
+			return userDocumentationRepository.save(userDocumentation);
 		}).orElseThrow(() -> new NotFoundException(" not found!"));
 
 	}
 
 	@PutMapping("/user/{userId}/userDoc/{docid}")
 	@ApiOperation(value = "Consultar saldo por id da conta")
-	public Doc update(@PathVariable Long userId, @PathVariable Long docid,
-			@Valid @RequestBody Doc docUserupdate) throws NotFoundException {
+	public UserDocumentation update(@PathVariable Long userId, @PathVariable Long docid,
+			@Valid @RequestBody UserDocumentation docUserupdate) throws NotFoundException {
 		if (!userRepository.existsById(userId)) {
 			throw new NotFoundException("User not found!");
 		}
