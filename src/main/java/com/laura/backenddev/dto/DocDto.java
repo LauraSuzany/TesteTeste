@@ -2,7 +2,7 @@ package com.laura.backenddev.dto;
 
 import java.io.Serializable;
 
-import com.laura.backenddev.entity.User;
+import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,13 +15,11 @@ public class DocDto implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private long id;
-	
 	private byte document;
 	
+	@NotBlank
 	private String tipoDocumento;
 	
-	private User user;
 	}
 
 

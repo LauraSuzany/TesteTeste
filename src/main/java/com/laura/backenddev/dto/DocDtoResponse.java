@@ -2,8 +2,6 @@ package com.laura.backenddev.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotBlank;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,18 +9,18 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO implements Serializable{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	//Passar todas as @anotções que não diz respieto a tabela dto
+public class DocDtoResponse implements Serializable {
 	
-	@NotBlank
-	private String nome;
+	private static final long serialVersionUID = 1L;
+	
+	private UserDTO user;
+	
+	private byte document;
 
-	private String cpf;
+	private String tipoDocumento;
+	
+
 	
 	}
+	
 

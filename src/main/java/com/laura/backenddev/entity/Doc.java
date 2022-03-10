@@ -1,6 +1,8 @@
 package com.laura.backenddev.entity;
 
 import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import org.springframework.lang.NonNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,15 +27,12 @@ public class Doc implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
-	@NonNull
+	
 	private byte document;
-	@NotBlank
+	@Column(name = "tipo_documento", nullable = false)
 	private String tipoDocumento;
+	
 	@ManyToOne
-	// @JsonIgnore
-	@JoinColumn(name = "User_id", nullable = false)
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	}
-
-
-	

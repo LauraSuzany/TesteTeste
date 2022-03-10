@@ -16,7 +16,21 @@ public interface UserMapper {
 	@Mapping(source = "clienteOrigem.cep", target = "zipCode")
 }
 */
-	List <UserDTO> modelsToDtos(List<User> user);
-	UserDTO modelToDto(User user);
-	User dtoToUModel(UserDTO userDTO);
+	List <UserDTO> toDtos(List<User> user);
+	List <User> toEntitys(List<UserDTO> user);
+	UserDTO toDTO(User user);
+	User toEntity(UserDTO userDTO);//dto para entity
+	
+	
+	
+//	   E toEntity(D dto);
+//
+//	    List<E> toEntity(List<D> dtos);
+//
+//	    D toDTO(E entity);
+//
+//	    List<D> toDTO(List<E> entities);
+//	}
+
+	
 }

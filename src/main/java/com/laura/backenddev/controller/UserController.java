@@ -19,6 +19,7 @@ import com.laura.backenddev.dto.UserDTO;
 import com.laura.backenddev.entity.User;
 import com.laura.backenddev.mapper.UserMapper;
 import com.laura.backenddev.repository.UserRepository;
+import com.laura.backenddev.service.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,31 +29,38 @@ import io.swagger.annotations.ApiOperation;
 @Api(value = "Teste empresa DBA Suporte")
 @CrossOrigin(originPatterns = "*")
 public class UserController {
-
+	
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 	
 	@Autowired
 	private UserMapper userMapper;
 
-	@GetMapping("/user")
-	@ApiOperation(value = "New findAll with dto")
-	public ResponseEntity<List<UserDTO>> findAll() {
-		return new ResponseEntity<>(userMapper.modelsToDtos(userRepository.findAll()),HttpStatus.OK);
-	}
+//	@GetMapping("/user")
+//	@ApiOperation(value = "New findAll with dto")
+//	public ResponseEntity<List<UserDTO>> findAll() {
+//		return new ResponseEntity<>(userMapper.modelsToDtos(userRepository.findAll()),HttpStatus.OK);
+//	}
+	
 	
 	@PostMapping("/user")
 	@ApiOperation(value = "New Save with dto")
 	public ResponseEntity<User> save(@RequestBody UserDTO userDTO) {
-		return new ResponseEntity<>(userRepository.save(
-					userMapper.dtoToUModel(userDTO)),HttpStatus.CREATED);
+
+		return new ResponseEntity<>(userService.saveUser(userDTO),HttpStatus.CREATED);
+				//	userMapper.dtoToUModel(userDTO)),HttpStatus.CREATED);
 	}
 	
+	
+
+	/*
 	@GetMapping("/user/{id}")
 	@ApiOperation(value = "New findbyID with dto")
 	public ResponseEntity<UserDTO> findByID(@PathVariable Long id) {
 		return new ResponseEntity<>(userMapper.modelToDto(userRepository.findById(id).get()),HttpStatus.OK);
 	}
+	
+	
 	@DeleteMapping("/user/{id}")
 	@ApiOperation(value = "New delete with dto")
 	public ResponseEntity<Void> delet(@PathVariable Long id) {
@@ -67,7 +75,7 @@ public class UserController {
 	@ApiOperation(value = "update with a new dto")
 	public ResponseEntity<User> update(@RequestBody UserDTO userDTO) {
 		return new ResponseEntity<>(userRepository.save(
-					userMapper.dtoToUModel(userDTO)),HttpStatus.CREATED);
+		*/		//	userMapper.dtoToUModel(userDTO)),HttpStatus.CREATED);
 	}
 	
 
@@ -77,10 +85,4 @@ public class UserController {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-}
+
