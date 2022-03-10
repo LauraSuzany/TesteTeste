@@ -35,4 +35,5 @@ public class Doc implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
+	//encontrou uma coluna listaDocumentos
 	}

@@ -33,5 +33,6 @@ public class User implements Serializable {
 	private String nome;
 	@CPF
 	private String cpf;
+	//criou uma colula listarDocumentos
 
 }
