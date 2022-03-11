@@ -6,22 +6,16 @@ import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-public class DocDto implements Serializable{
+@NotBlank
+public class UserDtoResponse implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private byte document;
+	private String nome;
 	
-	@NotBlank
-	private String tipoDocumento;
 	
-	}
-
-
+	private String cpf;
 	
-
+}

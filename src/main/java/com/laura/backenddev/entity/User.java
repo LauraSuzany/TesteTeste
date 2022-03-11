@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -33,6 +32,6 @@ public class User implements Serializable {
 	private String nome;
 	@CPF
 	private String cpf;
-	//criou uma colula listarDocumentos
+	
 
 }

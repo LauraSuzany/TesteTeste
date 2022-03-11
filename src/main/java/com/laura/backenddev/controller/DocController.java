@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.laura.backenddev.dto.DocDto;
+import com.laura.backenddev.dto.DocDtoRequest;
 import com.laura.backenddev.dto.DocDtoResponse;
-import com.laura.backenddev.entity.Doc;
-import com.laura.backenddev.mapper.DocResponseMapper;
 import com.laura.backenddev.service.docService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,15 +33,11 @@ public class DocController {
 	@Autowired
 	private docService docService;
 
-	@Autowired
-	private DocResponseMapper docResponseMapper;
-
 	@PostMapping("doc/user/{userId}")
 	@ApiOperation(value = "New teste")
-	public ResponseEntity<DocDtoResponse> createDoc(@PathVariable Long userId, @Valid @RequestBody DocDto docDto)
-			throws NotFoundException {
-		Doc doc = docService.saveDoc(userId, docDto);
-		return new ResponseEntity<>(docResponseMapper.mdodelToDoc(doc), HttpStatus.OK);
+	public ResponseEntity<DocDtoResponse> createDoc(@PathVariable Long userId
+			, @Valid @RequestBody DocDtoRequest docDtoRequest)throws NotFoundException {
+		return new ResponseEntity<>(docService.save(userId,docDtoRequest), HttpStatus.OK);
 	}
 
 	@GetMapping("/doc")
@@ -54,21 +48,22 @@ public class DocController {
 
 	@GetMapping("/doc/page")
 	@ApiOperation(value = "Retorna uma lista com paginação")
-	public ResponseEntity<Iterable<DocDtoResponse>> getAll(@RequestParam Integer page, @RequestParam Integer size) {
+	public ResponseEntity<Iterable<DocDtoResponse>> getAllPage(@RequestParam Integer page, @RequestParam Integer size) {
 		return ResponseEntity.ok(docService.getAll(page, size));
 	}
 
 	@PutMapping("/doc/{user_id}/doc/{id}")
 	@ApiOperation(value = "Atualizar por ID")
-	public ResponseEntity<Doc> Docupdate(@PathVariable Long user_id, @PathVariable Long id,
-			@Valid @RequestBody DocDto docDto) throws NotFoundException {
-		return new ResponseEntity<>(docService.docupdate(user_id, id, docDto), HttpStatus.OK);
+	public ResponseEntity<DocDtoResponse> docupdate(@PathVariable Long user_id, @PathVariable Long id
+			,@Valid @RequestBody DocDtoRequest docDtoRequest) throws NotFoundException {
+		return new ResponseEntity<>(docService.docupdate(docDtoRequest, user_id, id), HttpStatus.OK);
 	}
-
+		
 	@DeleteMapping("doc/{id}")
 	@ApiOperation(value = "Delete by ID")
-	public void deleteDoc(@PathVariable Long id) throws NotFoundException {
+	public ResponseEntity<Void> delete(@PathVariable Long id) throws NotFoundException {
 		docService.deletarDocById(id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 }
