@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.laura.backenddev.entity.UserDocumentation;
-import com.laura.backenddev.repository.UserDocumentationRepository;
+import com.laura.backenddev.entity.Doc;
+import com.laura.backenddev.repository.DocRepository;
 import com.laura.backenddev.repository.UserRepository;
 
 import io.swagger.annotations.Api;
